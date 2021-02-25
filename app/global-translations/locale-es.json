@@ -1254,6 +1254,7 @@
 	"label.heading.loanapplication": "Nueva solicitud de préstamo",
 	"label.heading.disbursementdate": "Fecha de desembolso",
 	"label.heading.loanofficer": "Agente de préstamo",
+	"label.heading.netdisburseamount": "Monto neto del desembolso",
 	"label.heading.disburseamount": "Desembolsar cantidad",
 	"label.heading.approvedamount": "Monto aprobado",
 	"label.heading.proposedamount": "Monto propuesto",

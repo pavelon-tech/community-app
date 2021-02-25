@@ -1296,6 +1296,7 @@
 	"label.heading.loanapplication": "Nouvelle demande de prêt",
 	"label.heading.disbursementdate": "Date de versement",
 	"label.heading.loanofficer": "Agent de crédit",
+	"label.heading.netdisburseamount": "Montant net à verser",
 	"label.heading.disburseamount": "Verser le montant",
 	"label.heading.approvedamount": "Montant approuvé",
 	"label.heading.proposedamount": "Montant proposé",
