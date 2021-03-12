@@ -535,8 +535,13 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
-                this.formData.semiMonthFirstDate = firstSemiDate;
-                this.formData.semiMonthSecondDate = secondSemiDate;
+                if (this.formData.repaymentFrequencyType == '5') {
+                    this.formData.semiMonthFirstDate = firstSemiDate;
+                    this.formData.semiMonthSecondDate = secondSemiDate;
+                } else {
+                    this.formData.semiMonthFirstDate = null;
+                    this.formData.semiMonthSecondDate = null;
+                }
 
                 //Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {
