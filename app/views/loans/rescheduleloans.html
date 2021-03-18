@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.installmentOn' | translate}}<span class="required">*</span></label>
 
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="dd MMMM yyyy"
                            class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                 </div>
@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.rescheduleReasonId' | translate}}<span class="required">*</span></label>
 
-                <div class="col-sm-3 paddedbottom10 paddedtop">
+                <div class="col-sm-2 paddedbottom10 paddedtop">
                     <select chosen="codes" class="form-control ng-pristine ng-valid" value="{{rescheduleReasonCode.id}}"
                             ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes"
                             ng-model="formData.rescheduleReasonId" >
@@ -31,7 +31,7 @@
             <div class="form-group">
 
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
-                <div class="col-sm-3 paddedbottom10 paddedtop">
+                <div class="col-sm-2 paddedbottom10 paddedtop">
 
                     <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
                            class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
@@ -40,21 +40,88 @@
             <div class="form-group">
 
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{ 'label.input.comments' | translate }}</label>
-                <div class="col-sm-3 paddedbottom10 paddedtop">
+                <div class="col-sm-2 paddedbottom10 paddedtop">
 
                     <textarea rows="2"  style="width: 402px; height: 76px;" class="form-control" ng-model="comments" ></textarea>
                 </div>
             </div>
 
-            <input type="checkbox" ng-model="changeRepaymentDate" > &nbsp;<span
-                class="control-label"><label>{{ 'label.input.changeRepaymentDate' | translate }}&nbsp;</label></span>
             <div class="form-group">
+                <div class="control-label col-sm-2 width20" style="text-align: left;">
+                    <input type="checkbox" ng-model="changeRepaymentDate" > &nbsp;<span
+                        class="control-label"><label>{{ 'label.input.changeRepaymentDate' | translate }}&nbsp;</label></span>
+                </div>
 
-                <label class="control-label col-sm-2 width20" data-ng-show="changeRepaymentDate" style="padding-left: 32px;text-align: left;">{{ 'label.input.installemtrescheduledto' | translate
-                    }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control " ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                <div class="col-sm-5 form-inline" ng-model="changeRepaymentDate">
+                    <table  data-ng-show="changeRepaymentDate">
+                        <tr>
+                            <td class="width19">
+                                <label>{{ 'label.input.installemtrescheduledto' | translate }}</label>
+                            </td>
+                            <td class="width31 paddedbottom10">
+                                <input id="adjustedDueDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
+                                    class="form-control " ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                            </td>
+                            <td class="width31">
+                                <label>{{ 'label.input.changeSchedule' | translate }}</label>
+                            </td>
+                            <td class="width19 paddedbottom10">
+                                <input type="checkbox" ng-model="formData.changeSchedule">
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="width100" data-ng-show="changeRepaymentDate">
+                        <tr data-ng-show="formData.changeSchedule">
+                            <td class="width19">
+                                <label>{{ 'label.input.repaidevery' | translate }}
+                                    <span class="required">*</span>
+                                    <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.repaidevery' | translate}}"
+                                    tooltip-append-to-body="true"></i>&nbsp;
+                                </label>
+                            </td>
+                            <td class="width31 paddedbottom20">
+                                <input id="repaymentEvery" name="repaymentEvery" class="form-control" type="text"
+                                    ng-model="formData.repaymentEvery" required late-validate number=true />
+                            </td>
+                            <td class="width31 paddedbottom20">
+                                <select id="repaymentFrequencyType" class="form-control"
+                                    ng-model="formData.repaymentFrequencyType"
+                                    ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in repaymentFrequencyTypeOptions"
+                                    ng-change = "repaymentFrequencyOption.value = changeFrequency(repaymentFrequencyTypeOptions, formData.repaymentFrequencyType)"
+                                    value="{{repaymentFrequencyType.id}}"></select>
+                            </td>
+                            <td class="width19"></td>
+                        </tr>
+                    </table>
+                    <table class="width100">
+                        <tr ng-show="repaymentFrequencyOption.value == 'Semi Month'">
+                            <td width="19%">
+                                <label>{{ 'First Date' | translate }}
+                                    <i class="fa fa-question-circle "
+                                        uib-tooltip="{{'label.tooltip.loanproduct.startdate' | translate}}"
+                                        tooltip-append-to-body="true"></i>
+                                </label>
+                            </td>
+                            <td class="paddedbottom20" width="31%">
+                                <input id="startDate" sort type="text" class="form-control"
+                                        datepicker-pop="dd MMMM yyyy" ng-model="formData.semiMonthFirstDate" is-open="opened"
+                                        min="minDate" />
+                            </td>
+                            
+                            <td width="19%">
+                                <label>{{ 'Second Date' | translate }}
+                                    <i class="fa fa-question-circle "
+                                        uib-tooltip="{{'label.tooltip.loanproduct.closedate' | translate}}"
+                                        tooltip-append-to-body="true"></i>
+                                </label>
+                            </td>
+                            <td class="paddedbottom20" width="31%">
+                                <input id="closeDate" sort type="text" class="form-control"
+                                        datepicker-pop="dd MMMM yyyy" ng-model="formData.semiMonthSecondDate" is-open="opened1"
+                                        min="minDate" />
+                            </td>       
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -65,7 +132,7 @@
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnPrincipal' | translate
                     }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
+                <div class="col-sm-2 paddedbottom10">
                     <input id="principalgrace" type="text" ng-show="introduceGracePeriods"
                            class="form-control" ng-model="formData.graceOnPrincipal">
                 </div>
@@ -75,7 +142,7 @@
                 <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
                     }}&nbsp;</label>
 
-                <div class="col-sm-3 paddedbottom10">
+                <div class="col-sm-2 paddedbottom10">
                     <input id="interestgrace" class="form-control" ng-show="introduceGracePeriods" type="text" ng-model="formData.graceOnInterest">
                 </div>
             </div>
@@ -89,7 +156,7 @@
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="extendRepaymentPeriod">{{ 'label.input.noofnewrepayments' | translate
                     }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
+                <div class="col-sm-2 paddedbottom10">
                     <input id="newrepayments" type="text" ng-show="extendRepaymentPeriod" class="form-control"
                            ng-model="formData.extraTerms">
                 </div>
@@ -101,7 +168,7 @@
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinterestrates">{{ 'label.input.newinterestrate' | translate
                     }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
+                <div class="col-sm-2 paddedbottom10">
                     <input id="newinterestrate" type="text" ng-show="adjustinterestrates" class="form-control paddedbottom10"
                            ng-model="formData.newInterestRate"></div>
             </div>
@@ -112,7 +179,7 @@
 
                 <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.emi.change.upto' | translate
                     }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
+                <div class="col-sm-2 paddedbottom10">
                     <input id="adjustedDueDate" type="text" data-ng-show="changeEMI"  name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
                            class="form-control " ng-model="formData.endDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                 </div>
@@ -122,7 +189,7 @@
                 <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.new.emi' | translate
                     }}&nbsp;</label>
 
-                <div class="col-sm-3 paddedbottom10">
+                <div class="col-sm-2 paddedbottom10">
                     <input id="interestgrace" class="form-control" data-ng-show="changeEMI"  type="text" ng-model="formData.emi">
                 </div>
             </div>

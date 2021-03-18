@@ -467,14 +467,15 @@
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId', command: '@command'},{
+                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId/:resourceType",{scheduleId:'@scheduleId', resourceType:'@resourceType', command: '@command'},{
                      get: {method: 'GET',params:{}},
                      getAll: {method: 'GET', params: {}, isArray: true},
                      template: {method: 'GET',params:{}},
                      preview:{method:'GET',params:{command:'previewLoanReschedule'}},
                      put: {method: 'POST', params: {command:'reschedule'}},
                      reject:{method:'POST',params:{command:'reject'}},
-                     approve:{method:'POST',params:{command:'approve'}}
+                     approve:{method:'POST',params:{command:'approve'}},
+                     runRescheduleJob:{method:'POST',params:{}}
                      }),
                      auditResource: defineResource(apiVer + "/audits/:templateResource", {templateResource: '@templateResource'}, {
                         get: {method: 'GET', params: {}},
