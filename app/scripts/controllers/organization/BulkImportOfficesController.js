@@ -5,7 +5,7 @@
         	scope.first = {};
         	scope.first.templateUrl =  API_VERSION + '/offices/downloadtemplate' + '?tenantIdentifier=' + $rootScope.tenantIdentifier
         	+ '&locale=' + scope.optlang.code + '&dateFormat=' + scope.df;
-        	let today = new Date().toISOString().slice(0, 10);
+        	var today = new Date().toISOString().slice(0, 10);
 
         	scope.formData = {};
         	 scope.onFileSelect = function (files) {
@@ -30,21 +30,17 @@
                     method: 'GET',
                     responseType: 'arraybuffer'
                 }).then(function(response) {
-                    console.log(response);
-                    console.log(response.headers('Content-Type'));
-                    console.log(response.headers('Content-Disposition'));
-                    let linkElement = document.createElement('a');
-                            const blob = new Blob([response.data]);
-                            console.log(blob);
-                            const url = window.URL.createObjectURL(blob);
-                            linkElement.setAttribute('href', url);
-                            linkElement.setAttribute('download', 'OFFICES' + today + '.xls');
-                            const clickEvent = new MouseEvent('click', {
-                                'view': window,
-                                'bubbles': true,
-                                'cancelable': false
-                            });
-                            linkElement.dispatchEvent(clickEvent);
+                    var linkElement = document.createElement('a');
+                    const blob = new Blob([response.data]);
+                    const url = window.URL.createObjectURL(blob);
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute('download', 'OFFICES' + today + '.xls');
+                    const clickEvent = new MouseEvent('click', {
+                        'view': window,
+                        'bubbles': true,
+                        'cancelable': false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
                 });
             };
          
