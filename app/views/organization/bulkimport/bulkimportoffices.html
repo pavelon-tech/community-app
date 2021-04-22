@@ -12,8 +12,10 @@
         <div class="panel-body">
             <div class="form-group">
                 <form name="bulkImportOffices" class="form-inline" role="form">
-                    <a target="_blank" class='btn btn-primary' href="{{hostUrl}}{{first.templateUrl}}" has-permission='READ_OFFICE'><i
-									class="fa fa-cloud-download"></i>{{'label.button.download' | translate}}</a>
+<!--                    <a target="_blank" class='btn btn-primary' href="{{hostUrl}}{{first.templateUrl}}" has-permission='READ_OFFICE'><i-->
+<!--                        									class="fa fa-cloud-download"></i>{{'label.button.download' | translate}}</a>-->
+                                            <a class='btn btn-primary' ng-click="download()" has-permission='READ_OFFICE'><i
+                                                    class="fa fa-cloud-download"></i>{{'label.button.download' | translate}}</a>
                 </form>
             </div>
         </div>

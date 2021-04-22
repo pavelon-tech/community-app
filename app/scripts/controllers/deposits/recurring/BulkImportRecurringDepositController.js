@@ -1,12 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BulkImportRecurringDepositController: function (scope, resourceFactory, location, API_VERSION, $rootScope, Upload) {
+        BulkImportRecurringDepositController: function (scope, http, resourceFactory, location, API_VERSION, $rootScope, Upload) {
 
             scope.first = {};
             scope.first.templateUrl =  API_VERSION + '/recurringdepositaccounts/downloadtemplate' + '?tenantIdentifier=' + $rootScope.tenantIdentifier
                 + '&locale=' + scope.optlang.code + '&dateFormat=' + scope.df;
             scope.formData = {};
             var requestParams = {staffInSelectedOfficeOnly:true};
+            let today = new Date().toISOString().slice(0, 10);
 
             resourceFactory.clientTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
@@ -66,6 +67,25 @@
                     scope.imports = data;
                 });
             };
+            scope.download = function () {
+                http({
+                    url: $rootScope.hostUrl + scope.first.templateUrl + scope.first.queryParams,
+                    method: 'GET',
+                    responseType: 'arraybuffer'
+                }).then(function(response) {
+                    let linkElement = document.createElement('a');
+                    const blob = new Blob([response.data]);
+                    const url = window.URL.createObjectURL(blob);
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute('download', 'RECURRING_DEPOSIT_ACCOUNTS' + today + '.xls');
+                    const clickEvent = new MouseEvent('click', {
+                        'view': window,
+                        'bubbles': true,
+                        'cancelable': false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                });
+            };
             scope.upload = function () {
                 Upload.upload({
                     url: $rootScope.hostUrl + API_VERSION + '/recurringdepositaccounts/uploadtemplate',
@@ -79,7 +99,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('BulkImportRecurringDepositController', ['$scope', 'ResourceFactory', '$location', 'API_VERSION', '$rootScope', 'Upload', mifosX.controllers.BulkImportRecurringDepositController]).run(function ($log) {
+    mifosX.ng.application.controller('BulkImportRecurringDepositController', ['$scope', '$http', 'ResourceFactory', '$location', 'API_VERSION', '$rootScope', 'Upload', mifosX.controllers.BulkImportRecurringDepositController]).run(function ($log) {
         $log.info("BulkImportRecurringDepositController initialized");
     });
 }(mifosX.controllers || {}));
