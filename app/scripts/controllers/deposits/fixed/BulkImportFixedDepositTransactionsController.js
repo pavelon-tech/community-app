@@ -6,7 +6,7 @@
             scope.first.templateUrl =  API_VERSION + '/fixeddepositaccounts/transaction/downloadtemplate' + '?tenantIdentifier=' + $rootScope.tenantIdentifier
                 + '&locale=' + scope.optlang.code + '&dateFormat=' + scope.df;
             scope.formData = {};
-            let today = new Date().toISOString().slice(0, 10);
+            var today = new Date().toISOString().slice(0, 10);
 
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices=data;
@@ -47,7 +47,7 @@
                     method: 'GET',
                     responseType: 'arraybuffer'
                 }).then(function(response) {
-                    let linkElement = document.createElement('a');
+                    var linkElement = document.createElement('a');
                     const blob = new Blob([response.data]);
                     const url = window.URL.createObjectURL(blob);
                     linkElement.setAttribute('href', url);

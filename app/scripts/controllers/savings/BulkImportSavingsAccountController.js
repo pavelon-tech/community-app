@@ -7,7 +7,7 @@
                 + '&locale=' + scope.optlang.code + '&dateFormat=' + scope.df;
             scope.formData = {};
             var requestParams = {staffInSelectedOfficeOnly:true};
-            let today = new Date().toISOString().slice(0, 10);
+            var today = new Date().toISOString().slice(0, 10);
 
             resourceFactory.clientTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
@@ -74,7 +74,7 @@
                     method: 'GET',
                     responseType: 'arraybuffer'
                 }).then(function(response) {
-                    let linkElement = document.createElement('a');
+                    var linkElement = document.createElement('a');
                     const blob = new Blob([response.data]);
                     const url = window.URL.createObjectURL(blob);
                     linkElement.setAttribute('href', url);
