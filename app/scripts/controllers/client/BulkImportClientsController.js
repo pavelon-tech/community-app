@@ -8,6 +8,7 @@
         	scope.formData = {};
         	var requestParams = {staffInSelectedOfficeOnly:true};
             var today = new Date().toISOString().slice(0, 10);
+            var changedLegalForm;
 
             resourceFactory.clientTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
@@ -55,7 +56,6 @@
 
             scope.changeLegalForm=function () {
             if (scope.formData.legalForm){
-                var changedLegalForm;
                 if(scope.formData.legalForm=="Person"){
                     changedLegalForm="CLIENTS_PERSON";
                 }else if(scope.formData.legalForm=="Entity") {
@@ -101,7 +101,7 @@
                     const blob = new Blob([response.data]);
                     const url = window.URL.createObjectURL(blob);
                     linkElement.setAttribute('href', url);
-                    linkElement.setAttribute('download', 'CLIENTS' + today + '.xls');
+                    linkElement.setAttribute('download', changedLegalForm + today + '.xls');
                     const clickEvent = new MouseEvent('click', {
                         'view': window,
                         'bubbles': true,
