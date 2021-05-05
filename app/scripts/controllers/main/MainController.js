@@ -221,6 +221,9 @@
             '<a href="http://mifos.org/resources/community/"> A global community </a> that aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
             '<span>Sounds interesting?<a href="http://mifos.org/take-action/volunteer/"> Get involved!</a></span>';
 
+            scope.text = '<span>Maintained by Muellners® Foundation, Representational CBS, powered with <a href="https://finscale.org/">Finscale</a>.</span><br/>' +
+                '<span>This web app is originally designed by <a href="https://mifos.org/">The Mifos Initiative</a> and uses <a href="https://fineract.apache.org/">Apache Fineract 1.x</a></span>';
+
             scope.logout = function () {
                 $rootScope.$broadcast("OnUserPreLogout");
                 scope.currentSession = sessionManager.clear();

@@ -20,14 +20,15 @@
             <div class="top triangle"></div>
             <div class="left triangle"></div>
             <div class="right triangle"></div>
-          </div>          
+        </div>
         <img src="images/loader.gif" style="margin: 10px auto" class="img-responsive">
     </div>
 </div>
 
 <div data-ng-hide="!domReady" data-ng-cloak>
     <!-- Login Form  -->
-    <div class="container" style="margin-top:10vh;" data-ng-hide="currentSession.user != null" data-ng-controller="LoginFormController">
+    <div class="container" style="margin-top:10vh;" data-ng-hide="currentSession.user != null"
+         data-ng-controller="LoginFormController">
 
 
         <div class="row">
@@ -77,7 +78,7 @@
             <div class="col-xs-12">
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-4 text-center">
-                        <img src="images/mifos-logo-flat.png" alt="Mifos X" style="width:80%; margin:auto;"
+                        <img src="images/finscale-logo.png" alt="Finscale" style="width:80%; margin:auto;"
                              class=" text-center img-responsive"/>
                     </div>
                 </div>
@@ -111,7 +112,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="login()"
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load"
+                                            data-ng-click="login()"
                                             id="login-button">
                                         {{'label.button.signin' | translate }}
                                     </button>
@@ -126,37 +128,42 @@
                     </div>
 
                     <div class="row" ng-show="twoFactorRequired && !otpRequested">
-                            <div class="col-sm-4 col-sm-offset-4">
-                                <h4>{{'label.heading.twofactor' | translate}}</h4>
-                                <hr>
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <h4>{{'label.heading.twofactor' | translate}}</h4>
+                            <hr>
 
-                                <p>{{'label.otp.delivery.info' | translate}}</p>
-                                <form class="form">
-                                    <div class="form-group">
-                                        <div ng-repeat="deliveryMethod in twoFactorDeliveryMethods" class="radio form-group">
-                                            <label for="{{deliveryMethod.name}}">
+                            <p>{{'label.otp.delivery.info' | translate}}</p>
+                            <form class="form">
+                                <div class="form-group">
+                                    <div ng-repeat="deliveryMethod in twoFactorDeliveryMethods"
+                                         class="radio form-group">
+                                        <label for="{{deliveryMethod.name}}">
                                             <input type="radio" id="{{deliveryMethod.name}}" name="otpDeliveryMethods"
-                                                   ng-model="$parent.selectedDeliveryMethodName" value="{{deliveryMethod.name}}">
-                                                {{'label.otp.delivery.select.' + deliveryMethod.name | translate:deliveryMethod}}</label>
-                                        </div>
-                                        <div class="checkbox form-group">
-                                            <label for="twofactorRememberMe">
-                                                <input type="checkbox" id="twofactorRememberMe" name="twofactorRememberMe" ng-model="twofactorRememberMe">
-                                                {{'label.button.tfa.remember_me' | translate }}
-                                            </label>
-                                        </div>
+                                                   ng-model="$parent.selectedDeliveryMethodName"
+                                                   value="{{deliveryMethod.name}}">
+                                            {{'label.otp.delivery.select.' + deliveryMethod.name |
+                                            translate:deliveryMethod}}</label>
                                     </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="requestOTP()"
-                                                id="otp-request-button">
-                                            {{'label.button.otp.request' | translate}}
-                                        </button>
-                                        <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
-                                            <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
-                                        </button>
+                                    <div class="checkbox form-group">
+                                        <label for="twofactorRememberMe">
+                                            <input type="checkbox" id="twofactorRememberMe" name="twofactorRememberMe"
+                                                   ng-model="twofactorRememberMe">
+                                            {{'label.button.tfa.remember_me' | translate }}
+                                        </label>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load"
+                                            data-ng-click="requestOTP()"
+                                            id="otp-request-button">
+                                        {{'label.button.otp.request' | translate}}
+                                    </button>
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
+                                        <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
 
                     <div class="row" ng-show="otpRequested">
@@ -178,7 +185,8 @@
                                            ng-model="otpToken">
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="validateOTP()"
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load"
+                                            data-ng-click="validateOTP()"
                                             id="otp-verify-button">
                                         {{'label.button.signin' | translate }}
                                     </button>
@@ -192,80 +200,43 @@
 
                 </div>
 
-                <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.hideCommunityDetails">
-                <hr/>
-                
-                <div class="row" >
-                    <div class="col-xs-4 text-center">
+                <div class="row" ng-hide="response.uiDisplayConfigurations.whiteLabel.loginPage.hideCommunityDetails">
+                    <hr/>
 
-                        <ul class="list-unstyled">
-                            <li><h5>{{'label.heading.resources' | translate | uppercase }}</h5></li>
-                            <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual"
-                                   href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual">{{
-                                'label.anchor.usermanual' | translate }}</a></li>
-                            <li><a target="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842"
-                                   href="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842">{{
-                                'label.anchor.functionalspec' | translate }}</a></li>
-                            <li><a href="https://mifosforge.jira.com/wiki/display/MDZ/Welcome+in+the+Zone">{{
-                                'label.anchor.developerzone' | translate }}</a></li>
-                        </ul>
+                    <div class="row">
+                        <div class="col-xs-4 text-center">
+                        </div>
+                        <div class="col-xs-4 text-center">
 
+                            <ul class="list-unstyled">
+                                <li><h5>{{'label.heading.resources' | translate | uppercase }}</h5></li>
+                                <li><a target="https://docs.fineract.net"
+                                       href="https://docs.fineract.net">{{'label.anchor.fineractwiki' | translate }}</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-xs-4 text-center">
+                        </div>
                     </div>
-                    <div class="col-xs-4 text-center">
-                        <ul class="list-unstyled">
-                            <li><h5>{{'label.heading.community' | translate | uppercase }}</h5></li>
-                            <li><a target="https://groups.google.com/forum/#!forum/mifosusers"
-                                   href="https://groups.google.com/forum/#!forum/mifosusers">{{
-                                'label.anchor.usersgroup' |
-                                translate }}</a></li>
-                            <li><a target="https://groups.google.com/forum/#!forum/mifosdeveloper"
-                                   href="https://groups.google.com/forum/#!forum/mifosdeveloper">{{
-                                'label.anchor.developergroup' | translate }}</a></li>
-                            <li><a target="http://mifos.org/resources/community/communications/#mifos-irc"
-                                   href="http://mifos.org/community/communications/mifos-irc">{{ 'label.anchor.irc' |
-                                translate
-                                }}</a></li>
-                        </ul>
 
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <ul class="list-unstyled">
-                            <li><h5>{{'label.heading.contribute' | translate | uppercase}}</h5></li>
-                            <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles"
-                                   href="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles/">{{
-                                'label.anchor.keydesignprinciples' | translate }}</a></li>
-                            <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Working+with+Code"
-                                   href="http://sourceforge.net/projects/mifos/">{{ 'label.anchor.workingwithcode' |
-                                translate
-                                }}</a></li>
-                            <li><a target="http://mifos.org/donate/" href="http://mifos.org/donate/">{{
-                                'label.anchor.donate' |
-                                translate }}</a></li>
-                        </ul>
+                    <hr/>
 
-                    </div>
-                </div>
-
-                <hr/>
-            
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3 text-center">
-                        <br>
-
-                        <p class=" text-muted"><span ng-bind-html="text"></span>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 text-center">
                             <br>
-                            <span style=" display: inline-block; margin:auto;min-width:40px; border-bottom:2px solid #e0e0e0;">&nbsp;</span>
-                        </p>
 
+                            <p class=" text-muted"><span ng-bind-html="text"></span>
+                                <br>
+                                <span style=" display: inline-block; margin:auto;min-width:40px; border-bottom:2px solid #e0e0e0;">&nbsp;</span>
+                            </p>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.releaseDetails">
-                <p class="text-center text-muted small">
-                    <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
-                    <br/> <span>{{response.uiDisplayConfigurations.whiteLabel.loginPage.companyName}}{{ 'label.heading.uptodate' | translate }}</span>
-                </p>
-            </div>
+                <div class="row" ng-hide="response.uiDisplayConfigurations.whiteLabel.loginPage.releaseDetails">
+
+                </div>
             </div>
         </div>
     </div>
@@ -274,7 +245,7 @@
     <div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
         <div class="loading-widget-div" data-ng-show="blockUI">
             <!-- TODO : insert loader here-->
-             <span class="centerloader">
+            <span class="centerloader">
                 <img src="images/833.svg" class="img-responsive">
             </span>
             <!--<div style="margin: 175px auto">
@@ -285,7 +256,7 @@
             <div id="mifos-reskin-header-nav" ng-include="'views/_topnavbar.html'"></div>
 
             <div id="mifos-reskin-body-container" style="background-color: #ebeff1">
-                <nav id="mifos-reskin-side-nav"  ng-scrollbar>
+                <nav id="mifos-reskin-side-nav" ng-scrollbar>
                     <div class="left-nav">
                         <ul>
                             <li>
@@ -352,7 +323,7 @@
                             </li>
                             <li>
                                 <a class="black" href="#/notifications">
-                                    <i class="fa fa-bell" ></i>
+                                    <i class="fa fa-bell"></i>
                                     <span>{{'label.heading.notification' | translate }}</span>
                                 </a>
                             </li>
@@ -370,14 +341,16 @@
 
                             <li>
                                 <a class="black" href="#/createcenter">
-                                <i class="fa fa-map-marker "></i>+ <span>{{'label.anchor.center' | translate}}</span>
+                                    <i class="fa fa-map-marker "></i>+
+                                    <span>{{'label.anchor.center' | translate}}</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a class="black" style="cursor: pointer;" ng-click="helpf()">
                                     <i class="fa fa-question-circle"></i>
-                                    <span>{{'label.anchor.help' | translate }}</span> &nbsp; <i class="fa fa-external-link"></i>
+                                    <span>{{'label.anchor.help' | translate }}</span> &nbsp; <i
+                                        class="fa fa-external-link"></i>
                                 </a>
                             </li>
 
@@ -390,10 +363,9 @@
                 <!-- Footer -->
                 <br><br>
                 <footer>
-                    <p align="center"><a
-                            href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel"
-                            target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
-                        translate}} {{releasedate}} </a></p>
+                    <p align="center">Maintained by Muellners® Foundation, Representational CBS, powered with <a
+                            href="https://finscale.org/">Finscale</a>.<br />
+                        This web app is originally designed by <a href="https://mifos.org/">The Mifos Initiative</a> and uses <a href="https://fineract.apache.org/">Apache Fineract 1.x</a></p>
                 </footer>
                 <hr>
             </div>

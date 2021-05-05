@@ -120,7 +120,9 @@
                         scope.modelName = 'approvedOnDate';
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
+                        scope.showNetDisbursalAmount = true;
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
+                        scope.formData.netDisbursalAmount = data.netDisbursalAmount;
                     });
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.form.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
@@ -166,11 +168,13 @@
                 case "disburse":
                     scope.modelName = 'actualDisbursementDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
+                        console.log(data);
                         scope.paymentTypes = data.paymentTypeOptions;
                         if (data.paymentTypeOptions.length > 0) {
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
                         scope.formData.transactionAmount = data.amount;
+                        scope.formData.netDisbursalAmount = data.netDisbursalAmount;
                         scope.formData[scope.modelName] = new Date();
                         if (data.fixedEmiAmount) {
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
@@ -181,6 +185,7 @@
                     scope.labelName = 'label.input.disbursedondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;
+                    scope.showNetDisbursalAmount = true;
                     scope.taskPermissionName = 'DISBURSE_LOAN';
                     scope.fetchEntities('m_loan','DISBURSE');
                     break;
@@ -423,6 +428,7 @@
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.addDisburseDetails = true;
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
+                        scope.formData.netDisbursalAmount = data.netDisbursalAmount;
                         scope.form.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
 
                         if(data.disbursementDetails != ""){
@@ -443,9 +449,10 @@
                     scope.taskPermissionName = 'UPDATE_DISBURSEMENTDETAIL';
                     break;
                 case "deletedisbursedetails":
-                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {                
                         scope.deleteDisburseDetails = true;
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
+                        scope.formData.netDisbursalAmount = data.netDisbursalAmount;
                         scope.form.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;

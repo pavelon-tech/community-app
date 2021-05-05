@@ -407,7 +407,6 @@
                 }
                 scope.netDisbursal = data.repaymentSchedule.totalPrincipalDisbursed - data.repaymentSchedule.totalFeeChargesCharged;
 
-
                 resourceFactory.standingInstructionTemplateResource.get({fromClientId: scope.loandetails.clientId,fromAccountType: 1,fromAccountId: routeParams.id},function (response) {
                     scope.standinginstruction = response;
                     scope.searchTransaction();

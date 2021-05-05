@@ -1,12 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BulkImportSavingsAccountsTransactionsController: function (scope, resourceFactory, location, API_VERSION, $rootScope, Upload) {
+        BulkImportSavingsAccountsTransactionsController: function (scope, http, resourceFactory, location, API_VERSION, $rootScope, Upload) {
 
             scope.first = {};
             scope.first.templateUrl =  API_VERSION + '/savingsaccounts/transactions/downloadtemplate' + '?tenantIdentifier=' + $rootScope.tenantIdentifier
                 + '&locale=' + scope.optlang.code + '&dateFormat=' + scope.df;
             scope.formData = {};
             var requestParams = {staffInSelectedOfficeOnly:true};
+            var today = new Date().toISOString().slice(0, 10);
 
             resourceFactory.clientTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
@@ -40,6 +41,25 @@
                     scope.imports = data;
                 });
             };
+            scope.download = function () {
+                http({
+                    url: $rootScope.hostUrl + scope.first.templateUrl + scope.first.queryParams,
+                    method: 'GET',
+                    responseType: 'arraybuffer'
+                }).then(function(response) {
+                    var linkElement = document.createElement('a');
+                    const blob = new Blob([response.data]);
+                    const url = window.URL.createObjectURL(blob);
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute('download', 'SAVINGS_TRANSACTIONS' + today + '.xls');
+                    const clickEvent = new MouseEvent('click', {
+                        'view': window,
+                        'bubbles': true,
+                        'cancelable': false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                });
+            };
             scope.upload = function () {
                 Upload.upload({
                     url: $rootScope.hostUrl + API_VERSION + '/savingsaccounts/transactions/uploadtemplate',
@@ -53,7 +73,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('BulkImportSavingsAccountsTransactionsController', ['$scope', 'ResourceFactory', '$location', 'API_VERSION', '$rootScope', 'Upload', mifosX.controllers.BulkImportSavingsAccountsTransactionsController]).run(function ($log) {
+    mifosX.ng.application.controller('BulkImportSavingsAccountsTransactionsController', ['$scope', '$http', 'ResourceFactory', '$location', 'API_VERSION', '$rootScope', 'Upload', mifosX.controllers.BulkImportSavingsAccountsTransactionsController]).run(function ($log) {
         $log.info("BulkImportSavingsAccountsTransactionsController initialized");
     });
 }(mifosX.controllers || {}));
