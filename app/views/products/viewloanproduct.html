@@ -12,8 +12,16 @@
         <div class="content">
             <div class="pull-right">
                 <div class="btn-group">
-                    <a href="#/editloanproduct/{{loanproduct.id}}" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'><i
-                       class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                    <div class="col-sm-5">
+                        <button data-ng-click="rescheduleJob()" class="btn btn-primary" has-permission='EXECUTE_RESCHEDULEASSOCIATEDLOANS'>
+                            <i class="fa fa-play"></i>&nbsp;&nbsp;{{ 'Reschedule Associated Loans' | translate }}
+                        </button>
+                    </div>
+                    
+                    <div class="col-md-offset-3 col-sm-2">
+                        <a href="#/editloanproduct/{{loanproduct.id}}" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'><i
+                        class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                    </div>
                 </div>
             </div>
             <legend class="paddedtop paddedbottom10">{{loanproduct.name}}</legend>
