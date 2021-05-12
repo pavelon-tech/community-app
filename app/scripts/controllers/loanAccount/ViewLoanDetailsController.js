@@ -151,6 +151,7 @@
             };
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors,futureSchedule'}, function (data) {
+                console.log(data);
                 scope.loandetails = data;
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
@@ -405,7 +406,7 @@
                 if (!data.canDisburse){
                     scope.showNetDisbursal = true;
                 }
-                scope.netDisbursal = data.repaymentSchedule.totalPrincipalDisbursed - data.repaymentSchedule.totalFeeChargesCharged;
+                scope.netDisbursal = data.netDisbursalAmount;
 
                 resourceFactory.standingInstructionTemplateResource.get({fromClientId: scope.loandetails.clientId,fromAccountType: 1,fromAccountId: routeParams.id},function (response) {
                     scope.standinginstruction = response;
