@@ -39,7 +39,7 @@
                         for(var i=0;i<data.length;i++)
                         {
                             data[i].field='scope.view.'+data[i].field;
-                            eval(data[i].field+"="+data[i].is_enabled);
+                            eval(data[i].field+"="+data[i].isEnabled);
 
                         }
 
@@ -493,6 +493,13 @@
             };
             resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
                 scope.clientAccounts = data;
+                if(data.loanAccounts){
+                    for(var i in data.loanAccounts){
+                        if(data.loanAccounts[i].status.value == "Active" && data.loanAccounts[i].inArrears){
+                            scope.clientAccounts.loanAccounts[i].status.value = "Active in Bad Standing"
+                        }
+                    }
+                }
                 if (data.savingsAccounts) {
                     for (var i in data.savingsAccounts) {
                         if (data.savingsAccounts[i].status.value == "Active") {
