@@ -176,3 +176,20 @@ https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/
 Please read the <a href="https://github.com/openMF/community-app/blob/develop/Contributing.md" >contribution guidelines</a>
 
 Note: This application will hit the demo server by default.
+
+Github Workflow
+------------------
+![Github Workflow](./app/images/github-workflow.png)
+
+### Steps (How to make contributions):
+1. **Create weekly pull request**
+* Create a named branch on the Muellners repo reflecting the new changes made.
+* Create a PR from your fork of the Muellners repo (consider Dev 1, Dev 2, and Dev 3 to be branches on your fork), to be merged with the newly created branch.
+* Ensure there are no conflicts and all checks have passed, then merge the PR into the named branch.
+* Create a new PR for merging the named branch into develop
+* Ensure there are no conflicts and all checks have passed, then merge the named branch into develop.
+2. **Do a monthly feature-based pull request**
+* Create a branch on the Muellners repo called Fineract-oss-release.
+* Create a new PR for merging a named branch into Fineact-oss-release (done on a selective basis).
+* For each named branch chosen, ensure there are no conflicts and all checks have passed, then merge the named branch into the Fineract-oss-release branch.
+* Do a rebase (monthly), creating a feature based PR from Fineract-oss-release to be submitted to the Apache community.
