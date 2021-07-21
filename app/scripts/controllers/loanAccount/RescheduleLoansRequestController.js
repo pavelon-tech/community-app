@@ -8,7 +8,7 @@
             scope.repaymentFrequencyTypeOptions = [];
             scope.formData.submittedOnDate = new Date();
 
-            resourceFactory.loanRescheduleResource.template({scheduleId:'template'},function(data){
+            resourceFactory.loanRescheduleResource.template({loanId: scope.loanId, scheduleId:'template'},function(data){
                 if (data.length > 0) {
                     scope.formData.rescheduleReasonId = data.rescheduleReasons[0].id;
                 }
