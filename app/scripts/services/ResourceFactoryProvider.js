@@ -467,7 +467,7 @@
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId/:resourceType",{scheduleId:'@scheduleId', resourceType:'@resourceType', command: '@command'},{
+                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:loanId/:scheduleId/:resourceType",{loanId: '@loanId', scheduleId:'@scheduleId', resourceType:'@resourceType', command: '@command'},{
                      get: {method: 'GET',params:{}},
                      getAll: {method: 'GET', params: {}, isArray: true},
                      template: {method: 'GET',params:{}},
