@@ -34,7 +34,8 @@
                 baseApiUrl = QueryParameters["baseApiUrl"];
             }
             var queryLink = getLocation(baseApiUrl);
-            host = "https://" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
+            // host = "https://" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
+            host = "https://ec2-52-23-232-117.compute-1.amazonaws.com:8443";
             portNumber = queryLink.port;
 
             $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
